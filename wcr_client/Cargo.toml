@@ -1,0 +1,26 @@
+[package]
+name = "wcr_client"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rustyline-async = {git="https://github.com/srtopster/rustyline-async"}
+tokio = {version="1.28.1",features=["full"]}
+magic-crypt = "3.1.12"
+crossterm = "0.25.0"
+
+[profile.release]
+strip = true
+panic = "abort"
+#Fuckery
+opt-level = "s"
+lto = true
+codegen-units = 1
+build = "build.rs"
+
+#[target.'cfg(windows)'.build-dependencies]
+[build-dependencies]
+winres = "0.1.12"
+#cargo +nightly build -Z build-std=std,panic_abort -Z build-std-features=panic_immediate_abort --target x86_64-pc-windows-msvc --release
